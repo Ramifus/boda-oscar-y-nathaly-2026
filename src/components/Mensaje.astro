@@ -1,0 +1,85 @@
+---
+// Mensaje.astro — Frase de los novios
+---
+
+<section class="py-4 md:py-6 px-4 relative">
+  <div class="max-w-2xl mx-auto relative">
+
+    <!-- 💠 CUADRO CON EFECTO BLUR -->
+    <div
+      class="relative backdrop-blur-md bg-white/40 rounded-[2rem] border border-[#9d8048]/30 shadow-lg px-8 py-12 md:px-12 md:py-14 overflow-hidden"
+      id="card-mensaje"
+    >
+      <!-- Brillo superior sutil -->
+      <div class="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
+
+      <!-- Ornamentos dorados en las esquinas -->
+      <div class="absolute top-4 left-4 w-12 h-12 border-t border-l border-[#9d8048]/50 rounded-tl-2xl pointer-events-none"></div>
+      <div class="absolute top-4 right-4 w-12 h-12 border-t border-r border-[#9d8048]/50 rounded-tr-2xl pointer-events-none"></div>
+      <div class="absolute bottom-4 left-4 w-12 h-12 border-b border-l border-[#9d8048]/50 rounded-bl-2xl pointer-events-none"></div>
+      <div class="absolute bottom-4 right-4 w-12 h-12 border-b border-r border-[#9d8048]/50 rounded-br-2xl pointer-events-none"></div>
+
+      <!-- 💬 TEXTO DEL MENSAJE -->
+      <div class="relative z-10 text-center" id="texto-mensaje">
+        <p class="font-charm text-xl sm:text-2xl md:text-3xl text-[#535636] leading-relaxed">
+          Nos conocíamos sin saber que algún día seríamos el amor de nuestras
+          vidas. Dios cruzó nuestros caminos y hoy nos permite elegirnos para
+          siempre.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      // 🎯 ESTADO INICIAL - Todo oculto
+      gsap.set("#card-mensaje", { opacity: 0, y: 22, scale: 0.96 });
+      gsap.set("#texto-mensaje", { opacity: 0, y: 15 });
+
+      ScrollTrigger.create({
+        trigger: "#card-mensaje",
+        start: "top 90%",
+        end: "top 20%",
+        onEnter: () => animarEntrada(),
+        onLeaveBack: () => animarSalida(),
+      });
+
+      // ✨ ENTRADA
+      function animarEntrada() {
+        const tl = gsap.timeline();
+
+        tl.to("#card-mensaje", {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.4,
+          ease: "power2.out",
+        }).to(
+          "#texto-mensaje",
+          { opacity: 1, y: 0, duration: 1.4, ease: "power2.out" },
+          "<0.15"
+        );
+      }
+
+      // 👋 SALIDA
+      function animarSalida() {
+        gsap.to("#card-mensaje, #texto-mensaje", {
+          opacity: 0,
+          duration: 0.7,
+          ease: "power2.in",
+        });
+      }
+    });
+  }
+</script>

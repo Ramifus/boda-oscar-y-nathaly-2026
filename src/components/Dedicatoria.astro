@@ -1,0 +1,181 @@
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 💒 COMPONENTE DEDICATORIA - INVITACIÓN DE BODA              -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="pt-8 md:pt-10 pb-1 px-4 relative">
+  <div class="max-w-3xl mx-auto">
+   
+    <!-- 🌸 FLORES ARRIBA -->
+    <div class="flex justify-center mb-4" id="flores-arriba-ded">
+      <div
+        role="img"
+        aria-label="Separador decorativo superior"
+        class="w-40 sm:w-48 md:w-56 lg:w-64 aspect-[777/73] separador-dorado"
+      ></div>
+    </div>
+    
+    <!-- 📖 TEXTO DEDICATORIA - 1 JUAN 4:16 -->
+    <div class="text-center px-6">
+      <p
+        class="font-charm text-xl sm:text-xl md:text-2xl text-[#535636] leading-relaxed mb-4"
+        id="texto-ded"
+      >
+        Dios es amor, y quien permanece en el amor permanece en Dios.
+      </p>
+      
+      <!-- 📜 REFERENCIA BÍBLICA -->
+      <p
+        class="font-charm text-base sm:text-lg md:text-xl text-[#9d8048] italic"
+        id="referencia-ded"
+      >
+        1 Juan 4:16 🤍
+      </p>
+    </div>
+    
+    <!-- 🌸 FLORES ABAJO -->
+    <div class="flex justify-center mt-4" id="flores-abajo-ded">
+      <div
+        role="img"
+        aria-label="Separador decorativo inferior"
+        class="w-40 sm:w-48 md:w-56 lg:w-64 aspect-[777/73] separador-dorado"
+      ></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    console.log("💒 Iniciando animaciones de dedicatoria...");
+    
+    // Estado inicial - Todo oculto
+    gsap.set("#flores-arriba-ded", { opacity: 0, y: -22 });
+    gsap.set("#texto-ded", { opacity: 0, scale: 0.96 });
+    gsap.set("#referencia-ded", { opacity: 0, scale: 0.96 });
+    gsap.set("#flores-abajo-ded", { opacity: 0, y: 22 });
+    
+    // ScrollTrigger con entrada y salida
+    ScrollTrigger.create({
+      trigger: "#texto-ded",
+      start: "top 100%",
+      end: "top 20%",
+     
+      onEnter: () => {
+        console.log("💒 Dedicatoria apareciendo...");
+        animarEntrada();
+      },
+      onLeaveBack: () => {
+        console.log("💒 Dedicatoria desapareciendo...");
+        animarSalida();
+      },
+    });
+    
+    // ANIMACIÓN DE ENTRADA - TODO AL MISMO TIEMPO
+    function animarEntrada() {
+      const tl = gsap.timeline();
+      
+      // Todo aparece simultáneamente con el mismo timing
+      tl.to("#flores-arriba-ded, #texto-ded, #referencia-ded, #flores-abajo-ded", {
+        opacity: 1,
+        duration: 1.4,
+        ease: "power2.out",
+            stagger: 0.12,
+          })
+      // Animaciones individuales de movimiento (simultáneas)
+      .to("#flores-arriba-ded", {
+        y: 0,
+        duration: 1.4,
+        ease: "power2.out",
+      }, "<0.12")  // "<" significa que empieza al mismo tiempo que la anterior
+      .to("#texto-ded", {
+        scale: 1,
+        duration: 1.4,
+        ease: "power2.out",
+      }, "<0.12")
+      .to("#referencia-ded", {
+        scale: 1,
+        duration: 1.4,
+        ease: "power2.out",
+      }, "<0.12")
+      .to("#flores-abajo-ded", {
+        y: 0,
+        duration: 1.4,
+        ease: "power2.out",
+      }, "<0.12");
+    }
+    
+    // ANIMACIÓN DE SALIDA - TODO AL MISMO TIEMPO
+    function animarSalida() {
+      const tl = gsap.timeline();
+      
+      // Todo desaparece simultáneamente
+      tl.to("#flores-arriba-ded, #texto-ded, #referencia-ded, #flores-abajo-ded", {
+        opacity: 0,
+        duration: 0.7,
+        ease: "power2.in",
+      })
+      // Movimientos individuales (simultáneos)
+      .to("#flores-arriba-ded", {
+        y: -22,
+        duration: 0.7,
+        ease: "power2.in",
+      }, "<0.12")
+      .to("#texto-ded", {
+        scale: 0.96,
+        duration: 0.7,
+        ease: "power2.in",
+      }, "<0.12")
+      .to("#referencia-ded", {
+        scale: 0.96,
+        duration: 0.7,
+        ease: "power2.in",
+      }, "<0.12")
+      .to("#flores-abajo-ded", {
+        y: 22,
+        duration: 0.7,
+        ease: "power2.in",
+      }, "<0.12");
+    }
+  });
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎨 ESTILOS CSS                                              -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<style>
+  /* Asegurar que el texto sea legible en todos los dispositivos */
+  #texto-ded {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  #referencia-ded {
+    letter-spacing: 0.05em;
+  }
+
+  /* Ajustes responsivos adicionales */
+  @media (max-width: 640px) {
+    section {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  /* Separador ornamental recoloreado al dorado #9d8048 */
+  .separador-dorado {
+    background-color: #9d8048;
+    -webkit-mask-image: url("/imagenes/SeparadoresDorado.webp");
+    mask-image: url("/imagenes/SeparadoresDorado.webp");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+</style>

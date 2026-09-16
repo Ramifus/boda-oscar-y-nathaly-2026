@@ -1,0 +1,227 @@
+---
+// CodigoVestimenta.astro
+---
+<section class="py-2 px-4 relative overflow-hidden">
+  <!-- Fondo sutil -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#fffaf5]/40 via-[#fff9f0]/20 to-[#fffaf5]/40 z-0"></div>
+
+  <div class="max-w-xl mx-auto text-center relative z-10">
+   
+    <!-- 🌸 SEPARADOR SUPERIOR -->
+    <div class="flex justify-center mb-6" id="separador-superior">
+      <img
+        src="/imagenes/separador.png"
+        alt="Separador decorativo"
+        class="w-32 md:w-40 lg:w-48 h-auto object-contain opacity-90"
+      />
+    </div>
+    
+    <!-- TÍTULO CÓDIGO DE VESTIMENTA -->
+    <div class="mb-6" id="titulo-vestimenta">
+      <h2
+        class="font-charm text-2xl md:text-3xl lg:text-3xl text-[#9d8048] font-bold tracking-wide mb-4"
+      >
+        CÓDIGO DE VESTIMENTA
+      </h2>
+      <!-- Línea decorativa -->
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#9d8048]"></div>
+        <div class="w-2 h-2 rounded-full bg-[#9d8048]"></div>
+        <div class="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#9d8048]"></div>
+      </div>
+    </div>
+    
+    <!-- 👔 IMAGEN VESTIMENTA -->
+    <div class="flex justify-center mb-6" id="imagen-vestimenta">
+      <img
+        src="/imagenes/CodigoVestimenta.webp"
+        alt="Código de vestimenta"
+        class="w-20 md:w-28 lg:w-28 h-auto object-contain drop-shadow-lg"
+      />
+    </div>
+    
+    <!-- DESCRIPCIÓN -->
+    <div class="mb-4" id="descripcion-vestimenta">
+      <p
+        class="font-charm text-3xl md:text-4xl text-[#9d8048] font-bold leading-relaxed"
+      >
+        Formal
+      </p>
+    </div>
+    
+    <!-- NOTA IMPORTANTE -->
+    <div class="mb-2" id="nota-vestimenta">
+      <p
+        class="font-charm text-xl md:text-xl text-[#535636] leading-relaxed"
+      >
+        Vestido para damas, traje para caballeros
+      </p>
+    </div>
+
+    <!-- 🌸 SEPARADOR INFERIOR -->
+    <div class="flex justify-center mt-6" id="separador-inferior">
+      <img
+        src="/imagenes/separador.png"
+        alt="Separador decorativo"
+        class="w-32 md:w-40 lg:w-48 h-auto object-contain opacity-90 transform "
+      />
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+ 
+  gsap.registerPlugin(ScrollTrigger);
+ 
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("👔 Iniciando animación de Código de Vestimenta...");
+
+      // 🎯 ESTADO INICIAL
+      gsap.set("#separador-superior", { opacity: 0, y: -22, scale: 0.94 });
+      gsap.set("#titulo-vestimenta", { opacity: 0, y: -16 });
+      gsap.set("#imagen-vestimenta", { opacity: 0, scale: 0.92, rotation: -10 });
+      gsap.set("#descripcion-vestimenta", { opacity: 0, x: -32 });
+      gsap.set("#nota-vestimenta", { opacity: 0, x: 32 });
+      gsap.set("#separador-inferior", { opacity: 0, y: 22, scale: 0.94 });
+     
+      // ✨ ANIMACIÓN ELEGANTE Y SIMULTÁNEA
+      ScrollTrigger.create({
+        trigger: "#separador-superior",
+        start: "top 85%",
+        end: "top 20%",
+        onEnter: () => {
+          const tl = gsap.timeline();
+         
+          // 🌸 TODO APARECE AL MISMO TIEMPO
+          tl.to("#separador-superior", {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1.6,
+            ease: "power2.out",
+          })
+          .to("#titulo-vestimenta", {
+            opacity: 1,
+            y: 0,
+            duration: 1.4,
+            ease: "power2.out",
+          }, "<0.12")
+          .to("#imagen-vestimenta", {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 1.7,
+            ease: "power2.out",
+          }, "<0.12")
+          .to("#descripcion-vestimenta", {
+            opacity: 1,
+            x: 0,
+            duration: 1.4,
+            ease: "power2.out",
+          }, "<0.12")
+          .to("#nota-vestimenta", {
+            opacity: 1,
+            x: 0,
+            duration: 1.4,
+            ease: "power2.out",
+          }, "<0.12")
+          .to("#separador-inferior", {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1.6,
+            ease: "power2.out",
+          }, "<0.12");
+
+          // 💫 Efecto de brillo sutil en la imagen
+          gsap.to("#imagen-vestimenta", {
+            scale: 1.05,
+            duration: 2.5,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: 1.5,
+          });
+        },
+        onLeaveBack: () => {
+          // Salida elegante
+          const tl = gsap.timeline();
+          
+          tl.to("#separador-superior, #titulo-vestimenta, #imagen-vestimenta, #descripcion-vestimenta, #nota-vestimenta, #separador-inferior", {
+            opacity: 0,
+            duration: 0.85,
+            ease: "power2.in",
+          })
+          .to("#separador-superior", {
+            y: -22,
+            scale: 0.94,
+            duration: 0.6,
+          }, "<0.12")
+          .to("#titulo-vestimenta", {
+            y: -16,
+            duration: 0.6,
+          }, "<0.12")
+          .to("#imagen-vestimenta", {
+            scale: 0.92,
+            rotation: -10,
+            duration: 0.6,
+          }, "<0.12")
+          .to("#descripcion-vestimenta", {
+            x: -32,
+            duration: 0.6,
+          }, "<0.12")
+          .to("#nota-vestimenta", {
+            x: 32,
+            duration: 0.6,
+          }, "<0.12")
+          .to("#separador-inferior", {
+            y: 22,
+            scale: 0.94,
+            duration: 0.6,
+          }, "<0.12");
+        },
+      });
+     
+      console.log("👔✨ ¡Código de Vestimenta con animación elegante activado!");
+    });
+  }
+</script>
+
+<style>
+  /* Transición suave para textos */
+  #descripcion-vestimenta p,
+  #nota-vestimenta p {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #descripcion-vestimenta:hover p {
+    color: #836939;
+    transform: scale(1.05);
+    text-shadow: 0 2px 8px rgba(157, 128, 72, 0.3);
+  }
+
+  /* Efecto hover en la imagen */
+  #imagen-vestimenta img {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #imagen-vestimenta:hover img {
+    transform: scale(1.1);
+    filter: drop-shadow(0 8px 20px rgba(157, 128, 72, 0.4));
+  }
+
+  /* Separadores con transición suave */
+  #separador-superior img,
+  #separador-inferior img {
+    transition: all 0.3s ease;
+  }
+
+  #separador-superior:hover img,
+  #separador-inferior:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+  }
+</style>

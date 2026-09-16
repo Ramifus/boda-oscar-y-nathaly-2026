@@ -1,0 +1,153 @@
+---
+// Restriccion.astro — Solo Adultos
+---
+
+<section class="py-8 md:py-10 px-4 relative">
+  <div class="max-w-2xl mx-auto relative">
+
+    <!-- 💠 CUADRO CON EFECTO BLUR -->
+    <div
+      class="relative backdrop-blur-md bg-white/40 rounded-[2rem] border border-[#9d8048]/30 shadow-lg px-8 py-10 md:px-12 md:py-12 overflow-hidden"
+      id="card-restriccion"
+    >
+      <!-- Brillo superior sutil -->
+      <div class="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
+
+      <!-- Ornamentos dorados en las esquinas -->
+      <div class="absolute top-4 left-4 w-12 h-12 border-t border-l border-[#9d8048]/50 rounded-tl-2xl pointer-events-none"></div>
+      <div class="absolute top-4 right-4 w-12 h-12 border-t border-r border-[#9d8048]/50 rounded-tr-2xl pointer-events-none"></div>
+      <div class="absolute bottom-4 left-4 w-12 h-12 border-b border-l border-[#9d8048]/50 rounded-bl-2xl pointer-events-none"></div>
+      <div class="absolute bottom-4 right-4 w-12 h-12 border-b border-r border-[#9d8048]/50 rounded-br-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 text-center">
+
+        <!-- 🚫 ICONO -->
+        <div class="flex justify-center mb-4" id="icono-restriccion">
+          <div
+            role="img"
+            aria-label="Solo adultos"
+            class="w-20 h-20 md:w-24 md:h-24 icono-restriccion-dorado"
+          ></div>
+        </div>
+
+        <!-- TÍTULO -->
+        <h2
+          class="font-great-vibes text-4xl md:text-5xl text-[#535636] leading-tight mb-3"
+          id="titulo-restriccion"
+        >
+          Solo Adultos
+        </h2>
+
+        <!-- ✦ ROMBO DECORATIVO -->
+        <div class="flex justify-center mb-6" id="rombo-restriccion">
+          <div class="w-2.5 h-2.5 bg-[#9d8048] rotate-45"></div>
+        </div>
+
+        <!-- TEXTO -->
+        <p
+          class="font-charm text-xl md:text-2xl text-[#535636] leading-relaxed px-2 md:px-4"
+          id="texto-restriccion"
+        >
+          Amamos a sus pequeños con todo el corazón, pero hemos pensado esta
+          celebración como una velada especial solo para adultos. Esperamos que
+          comprendan y aprovechen para disfrutar de una noche libre, bailar y
+          festejar con nosotros. ¡Gracias de corazón por su comprensión!
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      // 🎯 ESTADO INICIAL - Todo oculto
+      gsap.set("#card-restriccion", { opacity: 0, y: 22, scale: 0.96 });
+      gsap.set("#icono-restriccion", { opacity: 0, scale: 0.92 });
+      gsap.set("#titulo-restriccion", { opacity: 0, y: 15 });
+      gsap.set("#rombo-restriccion", { opacity: 0, scale: 0.9 });
+      gsap.set("#texto-restriccion", { opacity: 0, y: 15 });
+
+      ScrollTrigger.create({
+        trigger: "#card-restriccion",
+        start: "top 90%",
+        end: "top 20%",
+        onEnter: () => animarEntrada(),
+        onLeaveBack: () => animarSalida(),
+      });
+
+      // ✨ ENTRADA
+      function animarEntrada() {
+        const tl = gsap.timeline();
+
+        tl.to("#card-restriccion", {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.4,
+          ease: "power2.out",
+        })
+          .to(
+            "#icono-restriccion",
+            { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" },
+            "<0.15"
+          )
+          .to(
+            "#titulo-restriccion",
+            { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" },
+            "<0.1"
+          )
+          .to(
+            "#rombo-restriccion",
+            { opacity: 1, scale: 1, duration: 0.95, ease: "power2.out" },
+            "<0.1"
+          )
+          .to(
+            "#texto-restriccion",
+            { opacity: 1, y: 0, duration: 1.4, ease: "power2.out" },
+            "<0.1"
+          );
+      }
+
+      // 👋 SALIDA
+      function animarSalida() {
+        gsap.to(
+          "#card-restriccion, #icono-restriccion, #titulo-restriccion, #rombo-restriccion, #texto-restriccion",
+          {
+            opacity: 0,
+            duration: 0.7,
+            ease: "power2.in",
+          }
+        );
+      }
+    });
+  }
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎨 ESTILOS CSS                                              -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<style>
+  /* Icono recoloreado al dorado con la técnica de máscara */
+  .icono-restriccion-dorado {
+    background-color: #9d8048;
+    -webkit-mask-image: url("/imagenes/restriccion.png");
+    mask-image: url("/imagenes/restriccion.png");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+</style>

@@ -1,0 +1,192 @@
+---
+// Direccion.astro
+---
+<section class="py-8 px-4 relative">
+  <div class="max-w-xl mx-auto text-center relative">
+    
+    <!-- TÍTULO DIRECCIÓN -->
+    <div class="mb-4" id="titulo-direccion">
+      <h2
+        class="font-charm text-3xl md:text-4xl text-[#9d8048] font-bold tracking-wide"
+      >
+        Recepción Social
+      </h2>
+    </div>
+
+    <!-- 🏛️ ICONO DIRECCIÓN CON FLORES EN LOS BORDES -->
+    <div class="relative mb-4" id="icono-direccion">
+      
+      <!-- 🌸 FLORES EN EL BORDE IZQUIERDO (PEGADA AL BORDE DEL CONTENEDOR) -->
+      <div class="absolute left-0 top-1/2 -translate-y-1/2 w-24 sm:w-28 md:w-32 lg:w-36 pointer-events-none -ml-10 sm:-ml-14 md:-ml-16" id="flores-dir-izq">
+        <img
+          src="/imagenes/laterales.png"
+          alt="Flores decorativas izquierda"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+
+      <!-- ICONO CENTRAL -->
+      <div class="flex justify-center">
+        <div
+          role="img"
+          aria-label="Icono de recepción"
+          class="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 icono-recepcion"
+        ></div>
+      </div>
+
+      <!-- 🌸 FLORES EN EL BORDE DERECHO (PEGADA AL BORDE DEL CONTENEDOR) -->
+      <div class="absolute right-0 top-1/2 -translate-y-1/2 w-24 sm:w-28 md:w-32 lg:w-36 pointer-events-none -mr-10 sm:-mr-14 md:-mr-16" id="flores-dir-der">
+        <img
+          src="/imagenes/laterales.png"
+          alt="Flores decorativas derecha"
+          class="w-full h-auto object-contain scale-x-[-1]"
+        />
+      </div>
+
+    </div>
+    
+    <!-- INFORMACIÓN DE UBICACIÓN -->
+    <div class="mb-2" id="info-direccion">
+      <p
+        class="font-charm text-xl md:text-lg text-[#535636] leading-relaxed mb-2"
+      >
+        <b class="text-[#9d8048] text-2xl md:text-xl">Zona Llojeta Central</b><br />
+        Av. Mario Mercado,<br />
+        Calle Nro. 3
+        <p class="font-charm text-xl text-[#9d8048] font-bold">10:00 Hrs.</p>
+      </p>
+    </div>
+    
+    <!-- BOTÓN VER UBICACIÓN -->
+    <div class="flex justify-center" id="boton-ubicacion">
+      <a
+        href="https://maps.app.goo.gl/WXFYx2PrPj3bmtnE6?g_st=aw"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-3 rounded-full bg-[#535636] border border-[#9d8048]/60 shadow-md px-8 py-3 md:px-10 md:py-3.5 cursor-pointer transition-transform duration-300 hover:scale-105"
+      >
+        <!-- 📍 Icono de dirección -->
+        <svg
+          class="w-5 h-5 md:w-6 md:h-6 text-[#d9c69c] flex-shrink-0"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+        </svg>
+
+        <span class="font-charm text-xl md:text-2xl tracking-wide text-[#f7f3ea] whitespace-nowrap">
+          Ver ubicación
+        </span>
+      </a>
+    </div>
+
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      // Estado inicial
+      gsap.set("#icono-direccion", { opacity: 0, scale: 0.94 });
+      gsap.set("#titulo-direccion", { opacity: 0, scale: 0.96 });
+      gsap.set("#info-direccion", { opacity: 0, scale: 0.96 });
+      gsap.set("#boton-ubicacion", { opacity: 0, scale: 0.96 });
+      gsap.set("#flores-dir-izq", { opacity: 0, x: -22 });
+      gsap.set("#flores-dir-der", { opacity: 0, x: 22 });
+
+      // ✨ ANIMACIÓN SIMULTÁNEA - TODO AL MISMO TIEMPO
+      ScrollTrigger.create({
+        trigger: "#icono-direccion",
+        start: "top 85%",
+        end: "top 20%",
+        onEnter: () => {
+          const tl = gsap.timeline();
+          
+          // TODO aparece al mismo tiempo
+          tl.to("#icono-direccion, #flores-dir-izq, #flores-dir-der, #titulo-direccion, #info-direccion, #boton-ubicacion", {
+            opacity: 1,
+            duration: 1.4,
+            ease: "power2.out",
+            stagger: 0.12,
+          })
+          // Animaciones individuales (simultáneas)
+          .to("#icono-direccion", {
+            scale: 1,
+            duration: 1.4,
+            ease: "power2.out",
+          }, "<0.12")
+          .to("#flores-dir-izq", {
+            x: 0,
+            duration: 1.4,
+            ease: "power2.out",
+          }, "<0.12")
+          .to("#flores-dir-der", {
+            x: 0,
+            duration: 1.4,
+            ease: "power2.out",
+          }, "<0.12")
+          .to("#titulo-direccion, #info-direccion, #boton-ubicacion", {
+            scale: 1,
+            duration: 1.4,
+            ease: "power2.out",
+          }, "<0.12");
+        },
+        onLeaveBack: () => {
+          // Salida simultánea
+          const tl = gsap.timeline();
+          
+          tl.to("#icono-direccion, #flores-dir-izq, #flores-dir-der, #titulo-direccion, #info-direccion, #boton-ubicacion", {
+            opacity: 0,
+            duration: 0.7,
+            ease: "power2.in",
+          })
+          .to("#icono-direccion", {
+            scale: 0.94,
+            duration: 0.7,
+            ease: "power2.in",
+          }, "<0.12")
+          .to("#flores-dir-izq", {
+            x: -22,
+            duration: 0.7,
+            ease: "power2.in",
+          }, "<0.12")
+          .to("#flores-dir-der", {
+            x: 22,
+            duration: 0.7,
+            ease: "power2.in",
+          }, "<0.12")
+          .to("#titulo-direccion, #info-direccion, #boton-ubicacion", {
+            scale: 0.96,
+            duration: 0.7,
+            ease: "power2.in",
+          }, "<0.12");
+        },
+      });
+
+      console.log("📍🌸 Sección de Dirección con FloresBorde.png inicializada");
+    });
+  }
+</script>
+
+<style>
+  /* Asegurar que las flores en los bordes tengan movimiento fluido */
+  .flores-borde-izq,
+  .flores-borde-der {
+    will-change: transform;
+    transition: all 0.3s ease;
+  }
+
+  /* Icono de recepción pintado con el dorado de "Recepción Social" */
+  .icono-recepcion {
+    background-color: #9d8048;
+    -webkit-mask: url("/imagenes/rece.png") center / contain no-repeat;
+    mask: url("/imagenes/rece.png") center / contain no-repeat;
+  }
+</style>

@@ -1,0 +1,230 @@
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 👨‍👩‍👧 COMPONENTE NOMBRES - PADRES Y PADRINOS DE BODA        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<section class="relative py-2">
+  <div class="max-w-5xl mx-auto relative">
+    
+    <!-- 🌸 Adorno floral izquierdo - CENTRADO VERTICALMENTE -->
+    <div class="absolute left-0 top-1/2 -translate-y-1/2 w-16 pointer-events-none -ml-6 sm:-ml-7 md:-ml-8" id="adorno-izq">
+      <img 
+        src="/imagenes/Hojas.webp" 
+        alt="Adorno floral izquierdo" 
+        class="w-full h-auto object-contain transform -scale-x-100" 
+      />
+    </div>
+
+    <!-- 📝 Contenido central -->
+    <div class="max-w-3xl mx-auto text-center relative z-10 px-4 md:px-8 lg:px-12">
+      
+      <!-- 🌸 SEPARADOR FLORAL SUPERIOR -->
+      <div class="flex justify-center mb-8 md:mb-10" id="separador-bendicion">
+        <img
+          src="/imagenes/separador.png"
+          alt="Separador decorativo"
+          class="w-36 sm:w-44 md:w-52 h-auto object-contain"
+        />
+      </div>
+
+      <!-- ✨ TEXTO DE BENDICIÓN -->
+      <div id="texto-bendicion" class="mb-8 px-0">
+        <p class="font-charm text-2xl sm:text-2xl md:text-3xl text-[#9d8048] leading-relaxed">
+          Con la bendición de Dios, de nuestros queridos padres y amados padrinos
+        </p>
+      </div>
+      
+      <!-- 👔 SECCIÓN 1: PADRES DEL NOVIO -->
+      <div id="seccion-padres-novio" class="max-w-xl mx-auto">
+        <h2 class="font-charm text-xl sm:text-2xl text-[#9d8048] font-bold mb-2">
+          Padres del novio
+        </h2>
+        <div class="space-y-1">
+          <p class="font-charm text-xl sm:text-xl text-[#535636]">Edgar M. Rojas Arias</p>
+          <p class="font-charm text-xl sm:text-xl text-[#535636]">Jhenny J. Zamorano Valdivia</p>
+        </div>
+      </div>
+
+      <!-- 👗 SECCIÓN 2: PADRES DE LA NOVIA -->
+      <div id="seccion-padres-novia" class="pt-6 max-w-xl mx-auto">
+        <h2 class="font-charm text-xl sm:text-2xl text-[#9d8048] font-bold mb-2">
+          Padres de la novia
+        </h2>
+        <div class="space-y-1">
+          <p class="font-charm text-xl sm:text-xl text-[#535636]">Cesar G. Aliaga Auza (†)</p>
+          <p class="font-charm text-xl sm:text-xl text-[#535636]">Guadalupe Apaza Condori</p>
+        </div>
+      </div>
+
+      <!-- 💍 SECCIÓN 3: PADRINOS -->
+      <div id="seccion-padrinos-religiosos" class="pt-6 max-w-xl mx-auto">
+        <h2 class="font-charm text-xl sm:text-2xl text-[#9d8048] font-bold mb-2">
+          Padrinos
+        </h2>
+        <div class="space-y-1">
+          <p class="font-charm text-xl sm:text-xl text-[#535636]">Edwin Zamorano Valdivia</p>
+          <p class="font-charm text-xl sm:text-xl text-[#535636]">Ingrid Vera Carvajal</p>
+        </div>
+      </div>
+
+      <!-- 📜 SECCIÓN 4: PADRINOS DE ARO -->
+      <div id="seccion-padrinos-civiles" class="pt-6 max-w-xl mx-auto">
+        <h2 class="font-charm text-xl sm:text-2xl text-[#9d8048] font-bold mb-2">
+          Padrinos de Aro
+        </h2>
+        <div class="space-y-1">
+          <p class="font-charm text-xl sm:text-xl text-[#535636]">E. Jorge Rojas Zamorano</p>
+          <p class="font-charm text-xl sm:text-xl text-[#535636]">Katherine M. Vaca Ponce</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 🌸 Adorno floral derecho - CENTRADO VERTICALMENTE -->
+    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-16 pointer-events-none -mr-6 sm:-mr-7 md:-mr-8" id="adorno-der">
+      <img 
+        src="/imagenes/Hojas.webp" 
+        alt="Adorno floral derecho" 
+        class="w-full h-auto object-contain" 
+      />
+    </div>
+    
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (typeof window !== 'undefined') {
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("👨‍👩‍👧‍👦 Iniciando animaciones de padres y padrinos...");
+
+      // 🎯 ESTADO INICIAL - Todo oculto
+      gsap.set("#separador-bendicion", { opacity: 0, y: -16, scale: 0.96 });
+      gsap.set("#texto-bendicion", { opacity: 0, y: 22, scale: 0.97 });
+      gsap.set("#seccion-padres-novio", { opacity: 0, y: 22 });
+      gsap.set("#seccion-padres-novia", { opacity: 0, y: 22 });
+      gsap.set("#seccion-padrinos-religiosos", { opacity: 0, y: 22 });
+      gsap.set("#seccion-padrinos-civiles", { opacity: 0, y: 22 });
+      gsap.set("#adorno-izq", { opacity: 0, x: -22 });
+      gsap.set("#adorno-der", { opacity: 0, x: 22 });
+
+      // 📍 SCROLLTRIGGER PARA ACTIVAR LA ANIMACIÓN
+      ScrollTrigger.create({
+        trigger: "#texto-bendicion",
+        start: "top 90%",
+        end: "top 20%",
+        
+        onEnter: () => {
+          console.log("✨ Padres y padrinos apareciendo simultáneamente...");
+          animarSimultaneo();
+        },
+        
+        onLeaveBack: () => {
+          console.log("👋 Ocultando sección de padres y padrinos...");
+          ocultarSimultaneo();
+        },
+      });
+
+      // 🎬 ANIMACIÓN SIMULTÁNEA - TODO AL MISMO TIEMPO
+      function animarSimultaneo() {
+        // Animación elegante del texto de bendición (fade + scale suave)
+        gsap.to("#texto-bendicion", {
+          delay: 0.1,
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.6,
+          ease: "power3.out",
+        });
+        
+        const tl = gsap.timeline({ delay: 0.6 }); // Delay para que el texto aparezca primero
+
+        // TODO aparece al mismo tiempo con la misma duración
+        tl.to("#separador-bendicion, #adorno-izq, #adorno-der, #seccion-padres-novio, #seccion-padres-novia, #seccion-padrinos-religiosos, #seccion-padrinos-civiles", {
+          opacity: 1,
+          duration: 1.4,
+          ease: "power2.out",
+            stagger: 0.12,
+          })
+        // Movimientos individuales (simultáneos)
+        .to("#adorno-izq", {
+          x: 0,
+          duration: 1.4,
+          ease: "power2.out",
+        }, "<0.12")
+        .to("#adorno-der", {
+          x: 0,
+          duration: 1.4,
+          ease: "power2.out",
+        }, "<0.12")
+        .to("#seccion-padres-novio, #seccion-padres-novia, #seccion-padrinos-religiosos, #seccion-padrinos-civiles", {
+          y: 0,
+          duration: 1.4,
+          ease: "power2.out",
+        }, "<0.12");
+      }
+
+      // 🔙 ANIMACIÓN DE SALIDA SIMULTÁNEA
+      function ocultarSimultaneo() {
+        const tl = gsap.timeline();
+
+        // TODO desaparece al mismo tiempo
+        tl.to("#separador-bendicion, #texto-bendicion, #adorno-izq, #adorno-der, #seccion-padres-novio, #seccion-padres-novia, #seccion-padrinos-religiosos, #seccion-padrinos-civiles", {
+          opacity: 0,
+          duration: 0.7,
+          ease: "power2.in",
+        })
+        // Movimientos individuales (simultáneos)
+        .to("#adorno-izq", {
+          x: -22,
+          duration: 0.7,
+          ease: "power2.in",
+        }, "<0.12")
+        .to("#adorno-der", {
+          x: 22,
+          duration: 0.7,
+          ease: "power2.in",
+        }, "<0.12")
+        .to("#separador-bendicion, #texto-bendicion, #seccion-padres-novio, #seccion-padres-novia, #seccion-padrinos-religiosos, #seccion-padrinos-civiles", {
+          y: 22,
+          duration: 0.7,
+          ease: "power2.in",
+        }, "<0.12")
+        .to("#texto-bendicion", {
+          scale: 0.97,
+          duration: 0.7,
+          ease: "power2.in",
+        }, "<0.12");
+      }
+    });
+  }
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎨 ESTILOS CSS                                              -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<style>
+  /* Mejoras de legibilidad */
+  h2 {
+    letter-spacing: 0.05em;
+  }
+
+  /* Efecto suave en el texto de bendición */
+  #texto-bendicion p {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Ajustes responsivos */
+  @media (max-width: 640px) {
+    section {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+
+
+import NombresFlores from '../components/NombresFlores.astro';
+import Reproductor from '../components/Reproductor.astro';
+import Mensaje from '../components/Mensaje.astro';
+import Dedicatoria from '../components/Dedicatoria.astro';
+import Nombres from '../components/Nombres.astro';
+import Fecha from '../components/Fecha.astro';
+import Contador from '../components/Contador.astro';
+import Calendario from '../components/Calendario.astro';
+import Direccion from '../components/Direccion.astro';
+import DireccionIglesia from '../components/DireccionIglesia.astro';
+import Itinerario from '../components/Itinerario.astro';
+import CodigoVestimenta from '../components/CodigoVestimenta.astro';
+import Restriccion from '../components/Restriccion.astro';
+import GaleriaFotos from '../components/GaleriaFotos.astro';
+import Despedida from '../components/Despedida.astro';
+import FloresAbajo from '../components/FloresAbajo.astro';
+import SugerenciaRegalo from '../components/SugerenciaRegalo.astro';
+import Pase from '../components/Pase.astro';
+import Foto from '../components/Foto.astro';
+---
+
+<Layout title="Oscar & Nathaly">
+
+<NombresFlores/>
+<Reproductor/>
+<Mensaje/>
+<Dedicatoria/>
+<Nombres/>
+<Fecha/>
+<Contador/>
+<Calendario/>
+<DireccionIglesia/>
+<Direccion/>
+<Itinerario/>
+<Pase numeroPases={2} />
+<CodigoVestimenta/>
+<Restriccion/>
+<!-- <GaleriaFotos/> -->
+ <SugerenciaRegalo />
+<Despedida/>
+<FloresAbajo/>
+
+</Layout>
