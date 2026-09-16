@@ -8,7 +8,7 @@
         <!-- 🌸 Contenedor de flores superiores (izquierda y derecha) -->
         <div class="relative w-full flex justify-between items-start">
             <!-- Flores izquierda superior -->
-            <div id="flores-sup-izq" class="w-32 sm:w-36 md:w-40 lg:w-36 flex-shrink-0">
+            <div id="flores-sup-izq" class="w-40 sm:w-44 md:w-48 lg:w-44 flex-shrink-0">
                 <img
                     src="/imagenes/florarriba.png"
                     alt="Flores superiores izquierda"
@@ -18,7 +18,7 @@
             </div>
 
             <!-- Flores derecha superior (misma imagen que la izquierda, en espejo) -->
-            <div id="flores-sup-der" class="w-32 sm:w-36 md:w-40 lg:w-36 flex-shrink-0">
+            <div id="flores-sup-der" class="w-40 sm:w-44 md:w-48 lg:w-44 flex-shrink-0">
                 <img
                     src="/imagenes/florarriba.png"
                     alt="Flores superiores derecha"
@@ -46,15 +46,11 @@
             class="absolute left-1/2 transform -translate-x-1/2 top-[120px] sm:top-[130px] md:top-[190px] lg:top-[190px] z-50"
             id="anillos"
         >
-            <!-- Anillos -->
-            <div class="relative w-[120px] sm:w-32 md:w-36 lg:w-40 mx-auto">
-                <img
-                    id="anillo-img-top"
-                    src="/imagenes/anillos.png"
-                    alt="Anillos de boda"
-                    class="w-full h-auto object-contain block"
-                />
-            </div>
+            <img
+                src="/imagenes/anillos.png"
+                alt="Anillos de boda"
+                class="w-[120px] h-auto sm:w-32 md:w-36 lg:w-40 object-contain mx-auto"
+            />
         </div>
     </div>
 
@@ -63,45 +59,6 @@
     <!-- 💑 SECCIÓN 2: NOMBRES DE LOS NOVIOS                         -->
     <!-- ═══════════════════════════════════════════════════════════ -->
     <div class="relative w-full pt-20 sm:pt-24 md:pt-40 lg:pt-48">
-
-        <!-- ✨ SEPARADOR ORNAMENTAL SVG (entre los anillos y los nombres) -->
-        <div class="flex justify-center mb-8 md:mb-12 px-6" id="separador-anillos">
-            <svg
-                viewBox="0 0 600 28"
-                role="img"
-                aria-label="Separador decorativo"
-                class="w-64 sm:w-80 md:w-96 lg:w-[30rem] h-auto text-[#9d8048]"
-            >
-                <defs>
-                    <linearGradient id="swashIzq" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0" stop-color="currentColor" stop-opacity="0" />
-                        <stop offset="0.5" stop-color="currentColor" stop-opacity="0.75" />
-                        <stop offset="1" stop-color="currentColor" stop-opacity="1" />
-                    </linearGradient>
-                    <linearGradient id="swashDer" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0" stop-color="currentColor" stop-opacity="1" />
-                        <stop offset="0.5" stop-color="currentColor" stop-opacity="0.75" />
-                        <stop offset="1" stop-color="currentColor" stop-opacity="0" />
-                    </linearGradient>
-                </defs>
-
-                <!-- Trazos caligráficos: nacen en punta y engrosan hacia el centro -->
-                <path d="M18 14 C 110 12.8, 210 12.2, 268 12.5 L 268 15.5 C 210 15.8, 110 15.2, 18 14 Z"
-                      fill="url(#swashIzq)" />
-                <path d="M582 14 C 490 12.8, 390 12.2, 332 12.5 L 332 15.5 C 390 15.8, 490 15.2, 582 14 Z"
-                      fill="url(#swashDer)" />
-
-                <!-- Gotas de transición -->
-                <circle cx="278" cy="14" r="1.4" fill="currentColor" fill-opacity="0.75" />
-                <circle cx="322" cy="14" r="1.4" fill="currentColor" fill-opacity="0.75" />
-
-                <!-- Rombo central -->
-                <path d="M300 5 L 307 14 L 300 23 L 293 14 Z"
-                      fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round" />
-                <circle cx="300" cy="14" r="1.9" fill="currentColor" />
-            </svg>
-        </div>
-
         <div class="relative flex justify-center w-full">
 
             <!-- 🌺 FLORES DORADAS IZQUIERDA (posición absoluta, lado izquierdo) -->
@@ -196,10 +153,7 @@
 <script>
     import { gsap } from "gsap";
 
-    // El sobre de la portada tapa esta sección. Si las animaciones corren al
-    // cargar, para cuando el invitado abre el sobre ya terminaron y encuentra
-    // todo quieto: esperan a que la portada avise.
-    function iniciarAnimaciones() {
+    document.addEventListener("DOMContentLoaded", () => {
         console.log("🎊 Iniciando animaciones de boda - TODAS AL MISMO TIEMPO...");
 
         // ═══ FLORES SUPERIORES ═══
@@ -222,13 +176,6 @@
             { opacity: 1, y: 0, duration: 1.1, ease: "power2.out", delay: 0.1 }
         );
 
-        // ═══ SEPARADOR ORNAMENTAL ═══
-        gsap.fromTo(
-            "#separador-anillos",
-            { opacity: 0, scaleX: 0.7 },
-            { opacity: 1, scaleX: 1, duration: 1.2, ease: "power2.out", delay: 0.45 }
-        );
-
         // ═══ ANILLOS ═══
         gsap.fromTo(
             "#anillos",
@@ -237,7 +184,7 @@
         );
 
         // Rotación suave continua de los anillos
-        gsap.to("#anillo-img-top", {
+        gsap.to("#anillos", {
             rotation: 5,
             duration: 3,
             ease: "sine.inOut",
@@ -265,12 +212,6 @@
                 )
                 .join("");
 
-            // El contenedor quedó en opacity 0 esperando a la portada. Las
-            // letras nacen invisibles por su cuenta, así que devolverle la
-            // opacidad al contenedor no muestra nada de golpe: sin esto, el
-            // nombre no aparece nunca.
-            gsap.set(contenedor, { opacity: 1 });
-
             gsap.to(`#${elementId} .letra-cascada`, {
                 opacity: 1,
                 y: 0,
@@ -284,7 +225,7 @@
         }
 
         // ═══ NOMBRE DEL NOVIO ═══
-        animarNombre("nombre-novio", "Oscar", 0.3);
+        animarNombre("nombre-novio", "Rufel", 0.3);
 
         // ═══ SÍMBOLO & ═══
         gsap.fromTo(
@@ -294,7 +235,7 @@
         );
 
         // ═══ NOMBRE DE LA NOVIA ═══
-        animarNombre("nombre-novia", "Nathaly", 0.6);
+        animarNombre("nombre-novia", "Dalia", 0.6);
 
         // ═══ FLORES DORADAS ═══
         gsap.fromTo(
@@ -351,41 +292,6 @@
         });
 
         console.log("✨ Animaciones de boda completadas en ~1.5 segundos!");
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const portada = document.getElementById("portada-sobre");
-
-        if (!portada) {
-            iniciarAnimaciones();
-            return;
-        }
-
-        // Se esconde de entrada todo lo que se va a animar: si no, al
-        // disolverse la luz se ven los nombres ya puestos y recién después
-        // saltan a su animación.
-        gsap.set(
-            [
-                "#flores-sup-izq",
-                "#flores-sup-der",
-                "#titulo",
-                "#separador-anillos",
-                "#anillos",
-                "#nombre-novio",
-                "#ampersand",
-                "#nombre-novia",
-                "#flores-doradas-izq",
-                "#flores-doradas-der",
-                "#flores-izq",
-                "#flores-der",
-                "#separador-inferior",
-            ],
-            { opacity: 0 }
-        );
-
-        window.addEventListener("portada-abierta", iniciarAnimaciones, {
-            once: true,
-        });
     });
 </script>
 
@@ -419,6 +325,5 @@
             padding-right: 0 !important;
         }
     }
-
 
 </style>

@@ -1,0 +1,101 @@
+---
+// BotonMusica.astro — control flotante para pausar o reanudar la música
+---
+
+<!-- La música la arranca la portada al abrir el sobre; este botón solo la
+     pausa y la reanuda. El <audio> vive acá para que haya uno solo en toda
+     la invitación. -->
+<audio id="music-audio" preload="auto" loop>
+    <source src="/musica/melodia.mp3" type="audio/mpeg" />
+</audio>
+
+<button
+    id="btn-musica"
+    aria-label="Pausar o reanudar la música"
+    class="fixed bottom-5 right-5 z-[9000] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center opacity-0 pointer-events-none cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-95 focus:outline-none"
+    style="background-image: linear-gradient(#fffdf6, #fffdf6); border: 1.5px solid rgba(184, 150, 12, 0.55); box-shadow: 0 4px 14px rgba(74, 96, 53, 0.22);"
+>
+    <svg
+        id="icono-musica-play"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="#4A6035"
+        class="ml-0.5"
+    >
+        <path d="M8 5v14l11-7z"></path>
+    </svg>
+    <svg
+        id="icono-musica-pause"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="#4A6035"
+        class="hidden"
+    >
+        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"></path>
+    </svg>
+</button>
+
+<script>
+    import { gsap } from "gsap";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const boton = document.getElementById("btn-musica");
+        const audio = document.getElementById("music-audio");
+        const iconoPlay = document.getElementById("icono-musica-play");
+        const iconoPause = document.getElementById("icono-musica-pause");
+
+        if (!boton || !(audio instanceof HTMLAudioElement)) return;
+
+        // Los iconos se pintan según el estado real del audio, no según quién
+        // lo mandó a sonar: así el botón queda bien aunque la música la haya
+        // arrancado la portada.
+        function pintarIconos() {
+            if (!iconoPlay || !iconoPause) return;
+
+            if (audio instanceof HTMLAudioElement && audio.paused) {
+                iconoPlay.classList.remove("hidden");
+                iconoPause.classList.add("hidden");
+            } else {
+                iconoPlay.classList.add("hidden");
+                iconoPause.classList.remove("hidden");
+            }
+        }
+
+        audio.addEventListener("play", pintarIconos);
+        audio.addEventListener("pause", pintarIconos);
+        pintarIconos();
+
+        boton.addEventListener("click", () => {
+            if (audio.paused) {
+                audio.play().catch((error: any) => {
+                    console.log("Error al reproducir audio:", error);
+                });
+            } else {
+                audio.pause();
+            }
+        });
+
+        function mostrarBoton() {
+            boton?.classList.remove("pointer-events-none");
+            gsap.fromTo(
+                boton,
+                { opacity: 0, scale: 0.7 },
+                { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" },
+            );
+        }
+
+        // Mientras el sobre está puesto el botón estorba: aparece recién
+        // cuando la portada se abre.
+        const portada = document.getElementById("portada-sobre");
+
+        if (portada) {
+            window.addEventListener("portada-abierta", mostrarBoton, {
+                once: true,
+            });
+        } else {
+            mostrarBoton();
+        }
+    });
+</script>

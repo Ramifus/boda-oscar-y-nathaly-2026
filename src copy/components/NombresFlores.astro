@@ -196,10 +196,7 @@
 <script>
     import { gsap } from "gsap";
 
-    // El sobre de la portada tapa esta sección. Si las animaciones corren al
-    // cargar, para cuando el invitado abre el sobre ya terminaron y encuentra
-    // todo quieto: esperan a que la portada avise.
-    function iniciarAnimaciones() {
+    document.addEventListener("DOMContentLoaded", () => {
         console.log("🎊 Iniciando animaciones de boda - TODAS AL MISMO TIEMPO...");
 
         // ═══ FLORES SUPERIORES ═══
@@ -264,12 +261,6 @@
                         ">${letra === " " ? "&nbsp;" : letra}</span>`
                 )
                 .join("");
-
-            // El contenedor quedó en opacity 0 esperando a la portada. Las
-            // letras nacen invisibles por su cuenta, así que devolverle la
-            // opacidad al contenedor no muestra nada de golpe: sin esto, el
-            // nombre no aparece nunca.
-            gsap.set(contenedor, { opacity: 1 });
 
             gsap.to(`#${elementId} .letra-cascada`, {
                 opacity: 1,
@@ -351,41 +342,6 @@
         });
 
         console.log("✨ Animaciones de boda completadas en ~1.5 segundos!");
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const portada = document.getElementById("portada-sobre");
-
-        if (!portada) {
-            iniciarAnimaciones();
-            return;
-        }
-
-        // Se esconde de entrada todo lo que se va a animar: si no, al
-        // disolverse la luz se ven los nombres ya puestos y recién después
-        // saltan a su animación.
-        gsap.set(
-            [
-                "#flores-sup-izq",
-                "#flores-sup-der",
-                "#titulo",
-                "#separador-anillos",
-                "#anillos",
-                "#nombre-novio",
-                "#ampersand",
-                "#nombre-novia",
-                "#flores-doradas-izq",
-                "#flores-doradas-der",
-                "#flores-izq",
-                "#flores-der",
-                "#separador-inferior",
-            ],
-            { opacity: 0 }
-        );
-
-        window.addEventListener("portada-abierta", iniciarAnimaciones, {
-            once: true,
-        });
     });
 </script>
 
