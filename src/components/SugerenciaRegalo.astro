@@ -74,6 +74,7 @@
           <div
             role="img"
             aria-label="Regalo"
+            id="regalo-dorado"
             class="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 drop-shadow-md icono-regalo-dorado"
             style="-webkit-mask-image: url('/imagenes/regalo.png'); mask-image: url('/imagenes/regalo.png');"
           >
@@ -96,12 +97,14 @@
         <p
           class="font-charm text-xl text-[#535636] text-center leading-relaxed"
         >
-         Con mucha alegría queremos compartir con ustedes este momento tan especial.
-Su presencia será nuestro mejor regalo. <br />
+         Lo más importante para nosotros es compartir este día junto a ustedes. <br />
 
-Y si desean hacernos un obsequio y no saben qué regalarnos, pueden hacerlo mediante QR, ayudándonos a cumplir nuestros sueños en esta nueva etapa juntos.
+Si desean obsequiarnos algo, pueden hacerlo mediante el siguiente código QR.
+<br />
+
+Agradecemos de corazón su cariño y generosidad.
 <br/>
-<span class="text-[#9d8048] font-bold">¡Gracias por ser parte de nuestro día especial!</span>
+<span class="text-[#9d8048] font-bold">¡Gracias por acompañarnos en este momento tan especial!</span>
         </p>
       </div>
 
@@ -145,23 +148,13 @@ Y si desean hacernos un obsequio y no saben qué regalarnos, pueden hacerlo medi
             <div class="w-14 md:w-20 h-px bg-gradient-to-l from-transparent to-[#9d8048]/70"></div>
           </div>
 
-          <!-- Nº DE CUENTA -->
-          <div class="text-center mb-6">
-            <p class="font-charm text-base md:text-lg tracking-[0.12em] text-[#9d8048] mb-1">
-              Cuenta
-            </p>
-            <p class="font-crimson text-base md:text-lg text-[#535636] font-semibold tracking-[0.06em]">
-              [ PENDIENTE: Nº de cuenta ]
-            </p>
-          </div>
-
           <!-- DESTINATARIO -->
           <div class="text-center">
             <p class="font-charm text-base md:text-lg tracking-[0.12em] text-[#9d8048] mb-1">
-              Destinatario
+              Nombre de cuenta
             </p>
             <p class="font-charm text-lg md:text-xl text-[#535636] leading-snug">
-              [ PENDIENTE: titular de la cuenta ]
+              Nathaly Aliaga
             </p>
           </div>
 
@@ -193,12 +186,13 @@ Y si desean hacernos un obsequio y no saben qué regalarnos, pueden hacerlo medi
       console.log("🎁 Iniciando animación de Sugerencia de Regalos...");
 
       // 🎯 ESTADO INICIAL
-      gsap.set("#hoja-qr-izq", { opacity: 0, x: -32 });
-      gsap.set("#hoja-qr-der", { opacity: 0, x: 32 });
+      gsap.set("#hoja-qr-izq", { opacity: 0 });
+      gsap.set("#hoja-qr-der", { opacity: 0 });
       gsap.set("#titulo-qr", { opacity: 0, scale: 0.94 });
-      gsap.set("#icono-regalo", { opacity: 0, scale: 0.92, y: -16 });
-      gsap.set("#flores-qr-izq", { opacity: 0, x: -22 });
-      gsap.set("#flores-qr-der", { opacity: 0, x: 22 });
+      gsap.set("#icono-regalo", { opacity: 0 });
+      gsap.set("#regalo-dorado", { scale: 0.92, y: -16 });
+      gsap.set("#flores-qr-izq", { opacity: 0 });
+      gsap.set("#flores-qr-der", { opacity: 0 });
       gsap.set("#mensaje-qr", { opacity: 0, scale: 0.94 });
       gsap.set("#card-qr", { opacity: 0, scale: 0.94 });
       gsap.set("#qr-container", { opacity: 0, scale: 0.94 });
@@ -232,6 +226,12 @@ Y si desean hacernos un obsequio y no saben qué regalarnos, pueden hacerlo medi
 
           gsap.to("#icono-regalo", {
             opacity: 1,
+            duration: 1.6,
+            ease: "power2.out",
+            delay: 0.1,
+          });
+
+          gsap.to("#regalo-dorado", {
             scale: 1,
             y: 0,
             duration: 1.6,
@@ -241,14 +241,12 @@ Y si desean hacernos un obsequio y no saben qué regalarnos, pueden hacerlo medi
 
           gsap.to("#hoja-qr-izq, #hoja-qr-der", {
             opacity: 0.6,
-            x: 0,
             duration: 1.6,
             ease: "power3.out",
           });
 
           gsap.to("#flores-qr-izq, #flores-qr-der", {
             opacity: 1,
-            x: 0,
             duration: 1.6,
             ease: "power2.out",
             delay: 0.25,
@@ -256,16 +254,6 @@ Y si desean hacernos un obsequio y no saben qué regalarnos, pueden hacerlo medi
           });
 
           // 💫 ANIMACIONES CONTINUAS
-
-          // Latido suave del icono de regalo
-          gsap.to("#icono-regalo", {
-            scale: 1.06,
-            duration: 2.5,
-            ease: "sine.inOut",
-            yoyo: true,
-            repeat: -1,
-            delay: 1.2,
-          });
 
           // Pulso en puntos decorativos
           gsap.to("#decoracion-qr > div > div", {
@@ -280,12 +268,13 @@ Y si desean hacernos un obsequio y no saben qué regalarnos, pueden hacerlo medi
           });
         },
         onLeaveBack: () => {
-          gsap.set("#hoja-qr-izq", { opacity: 0, x: -32 });
-          gsap.set("#hoja-qr-der", { opacity: 0, x: 32 });
+          gsap.set("#hoja-qr-izq", { opacity: 0 });
+          gsap.set("#hoja-qr-der", { opacity: 0 });
           gsap.set("#titulo-qr", { opacity: 0, scale: 0.94 });
-          gsap.set("#icono-regalo", { opacity: 0, scale: 0.92, y: -16 });
-          gsap.set("#flores-qr-izq", { opacity: 0, x: -22 });
-          gsap.set("#flores-qr-der", { opacity: 0, x: 22 });
+          gsap.set("#icono-regalo", { opacity: 0 });
+          gsap.set("#regalo-dorado", { scale: 0.92, y: -16 });
+          gsap.set("#flores-qr-izq", { opacity: 0 });
+          gsap.set("#flores-qr-der", { opacity: 0 });
           gsap.set("#mensaje-qr", { opacity: 0, scale: 0.94 });
           gsap.set("#card-qr", { opacity: 0, scale: 0.94 });
           gsap.set("#qr-container", { opacity: 0, scale: 0.94 });

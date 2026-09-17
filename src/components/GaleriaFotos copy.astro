@@ -1,0 +1,161 @@
+---
+// GaleriaFotos.astro
+---
+
+<section class="py-10 md:py-16 px-4 relative overflow-hidden">
+  <!-- Fondo sutil -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#f5f9f0]/40 via-[#faf8f5]/20 to-[#f5f9f0]/40 z-0"></div>
+
+  <div class="max-w-2xl mx-auto relative z-10">
+
+    <!-- TÍTULO ELEGANTE -->
+    <div class="text-center mb-10" id="titulo-galeria">
+      <!-- Línea superior decorativa -->
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <div class="w-16 h-px bg-gradient-to-r from-transparent to-[#9d8048]/60"></div>
+        <div class="relative">
+          <div class="w-2 h-2 bg-[#9d8048] rounded-full"></div>
+          <div class="absolute inset-0 w-2 h-2 bg-[#9d8048] rounded-full animate-ping"></div>
+        </div>
+        <div class="w-16 h-px bg-gradient-to-l from-transparent to-[#9d8048]/60"></div>
+      </div>
+
+      <h2 class="font-charm text-2xl md:text-3xl text-[#9d8048] font-bold tracking-wide">
+        HOY Y SIEMPRE
+      </h2>
+
+      <p class="font-charm text-xl md:text-2xl text-[#535636] mt-4 leading-relaxed">
+        El comienzo de nuestro para siempre
+      </p>
+    </div>
+
+    <!-- 🖼️ FOTO DE LOS NOVIOS - TAMAÑO ORIGINAL (sin recorte) -->
+    <div class="flex justify-center" id="foto-novios">
+      <div class="relative p-3 md:p-4 bg-white/95 backdrop-blur-sm rounded-[2rem] border-2 border-[#9d8048]/40 shadow-xl">
+
+        <!-- Esquinas decorativas doradas -->
+        <div class="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-[#9d8048]/70 rounded-tl-2xl pointer-events-none"></div>
+        <div class="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-[#9d8048]/70 rounded-tr-2xl pointer-events-none"></div>
+        <div class="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-[#9d8048]/70 rounded-bl-2xl pointer-events-none"></div>
+        <div class="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-[#9d8048]/70 rounded-br-2xl pointer-events-none"></div>
+
+        <!-- Imagen en su proporción original -->
+        <img
+          src="/imagenes/foto1.png"
+          alt="Rufel y Dalia"
+          class="w-full h-auto object-contain rounded-[1.5rem] block"
+        />
+      </div>
+    </div>
+
+    <!-- NOMBRE DE LOS NOVIOS -->
+    <div class="text-center mt-8" id="nombres-galeria">
+      <p class="font-great-vibes text-4xl md:text-5xl text-[#9d8048]">
+        Rufel &amp; Dalia
+      </p>
+    </div>
+
+    <!-- ORNAMENTO INFERIOR -->
+    <div class="flex justify-center mt-8" id="ornamento-inferior">
+      <div class="flex items-center gap-4">
+        <div class="w-20 h-px bg-gradient-to-r from-transparent to-[#9d8048]/60"></div>
+        <div class="relative">
+          <div class="w-2.5 h-2.5 bg-[#9d8048] rounded-full"></div>
+          <div class="absolute inset-0 w-2.5 h-2.5 bg-[#9d8048] rounded-full animate-ping"></div>
+        </div>
+        <div class="w-20 h-px bg-gradient-to-l from-transparent to-[#9d8048]/60"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("📸 Iniciando galería elegante...");
+
+      // 🎯 ESTADO INICIAL
+      gsap.set("#titulo-galeria", { opacity: 0, y: -22 });
+      gsap.set("#foto-novios", { opacity: 0, y: 28, scale: 0.97 });
+      gsap.set("#nombres-galeria", { opacity: 0, y: 16 });
+      gsap.set("#ornamento-inferior", { opacity: 0, scale: 0.94 });
+
+      ScrollTrigger.create({
+        trigger: "#titulo-galeria",
+        start: "top 85%",
+        end: "top 20%",
+        onEnter: () => {
+          const tl = gsap.timeline();
+
+          tl.to("#titulo-galeria", {
+            opacity: 1,
+            y: 0,
+            duration: 1.4,
+            ease: "power3.out",
+          })
+          .to("#foto-novios", {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1.6,
+            ease: "power2.out",
+          }, "-=0.6")
+          .to("#nombres-galeria", {
+            opacity: 1,
+            y: 0,
+            duration: 1.1,
+            ease: "power2.out",
+          }, "-=0.6")
+          .to("#ornamento-inferior", {
+            opacity: 1,
+            scale: 1,
+            duration: 1.1,
+            ease: "power2.out",
+          }, "-=0.4");
+        },
+        onLeaveBack: () => {
+          gsap.set("#titulo-galeria", { opacity: 0, y: -22 });
+          gsap.set("#foto-novios", { opacity: 0, y: 28, scale: 0.97 });
+          gsap.set("#nombres-galeria", { opacity: 0, y: 16 });
+          gsap.set("#ornamento-inferior", { opacity: 0, scale: 0.94 });
+        },
+      });
+
+      console.log("📸✨ ¡Galería elegante lista!");
+    });
+  }
+</script>
+
+<style>
+  /* Animación de ping suave */
+  @keyframes ping-slow {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .animate-ping {
+    animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* Marco de la foto con transición suave */
+  #foto-novios > div {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #foto-novios > div:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(157, 128, 72, 0.25);
+  }
+</style>
