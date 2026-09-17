@@ -201,9 +201,12 @@
             });
 
             // ── FOTOS: foto1.webp ... foto10.webp ──
+            // Fotos cuyo encuadre se centra en la miniatura (por número de foto)
+            const MINIATURAS_CENTRADAS = [3];
             const fotos = Array.from({ length: 10 }, (_, i) => ({
                 src: `/imagenes/foto${i + 1}.webp`,
                 alt: `Foto ${i + 1}`,
+                miniPos: MINIATURAS_CENTRADAS.includes(i + 1) ? "object-center" : "object-top",
             }));
 
             const DURACION = 4500;
@@ -266,7 +269,7 @@
                     mini.className = "miniatura-btn flex-shrink-0 snap-start rounded-xl overflow-hidden";
                     mini.setAttribute("data-mini", i.toString());
                     mini.style.cssText = `width:52px; height:52px; border:2px solid ${i === 0 ? "rgba(156,122,46,0.9)" : "rgba(156,122,46,0.2)"}; opacity:${i === 0 ? "1" : "0.6"};`;
-                    mini.innerHTML = `<img src="${foto.src}" alt="${foto.alt}" class="w-full h-full object-cover object-top" />`;
+                    mini.innerHTML = `<img src="${foto.src}" alt="${foto.alt}" class="w-full h-full object-cover ${foto.miniPos}" />`;
                     mini.addEventListener("click", () => {
                         irASlide(i);
                         clearTimeout(autoTimer);
